@@ -26,7 +26,7 @@ function Get-Disk-info {
 function Get-OS-Infos {
   $OSinfo = Get-CimInstance -Classname Win32_OperatingSystem 
 
-  $OS = $OSinfo | Select-Object Name, Version, SerialNumber, RegisteredUser, BuildNumber, Caption, BuildNumber, Manufacturer, InstallDate
+  $OS = $OSinfo | Select-Object Name, Version, SerialNumber, RegisteredUser, BuildNumber, Caption, Manufacturer, InstallDate
 
   $OS
 }
