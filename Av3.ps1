@@ -31,6 +31,14 @@ function Get-OS-Infos {
   $OS
 }
 
+function Get-BIOS-Infos {
+  $PCBIOS = Get-CimInstance -Classname WIN32_BIOS
+
+  $BIOS = $PCBIOS | Select-Object Name,BIOSVersion, Version, SerialNumber, CurrentLanguage, STATUS
+ 
+  $BIOS
+}
+
 function Get-HTML-Infos {
   $PCName = HOSTNAME
   $DiskInfo = Get-Disk-info
