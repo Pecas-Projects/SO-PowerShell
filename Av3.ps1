@@ -23,6 +23,14 @@ function Get-Disk-info {
   $Disk
 }
 
+function Get-OS-Infos {
+  $OSinfo = Get-CimInstance -Classname Win32_OperatingSystem 
+
+  $OS = $OSinfo | Select-Object Name, Version, SerialNumber, RegisteredUser, BuildNumber, Caption, BuildNumber, Manufacturer, InstallDate
+
+  $OS
+}
+
 function Get-HTML-Infos {
   $PCName = HOSTNAME
   $DiskInfo = Get-Disk-info
