@@ -21,10 +21,10 @@ function Get-Options {
     '8- Todos acima'
 
   $OPTION = read-host
-
+  Write-Output 'Abra ou recarregue o arquivo HTML'  
   switch ( $OPTION )
   { #cada pção chama a função que converte para HTML a função correspondente
-    1 { 'Nome do Computador'    } 
+    1 { Get-HTML-Hostname   } 
     2 { 'Principais serviços rodando'   }
     3 { 'Principais serviços parados' }
     4 { 'Sistema Operacional'  }
@@ -73,12 +73,16 @@ function Get-Services-Info {
   $services
 }
 
+function Get-HTML-Hostname {
+   $PCName = HOSTNAME
+    Html-Generate -Body "<p>$PCName</p>" -Title "Avaliacao 3" -File ./SoAv3.html
+}
+
 function Get-HTML-Infos {
-  $PCName = HOSTNAME
   $DiskInfo = Get-Disk-info
 
   
-  Html-Generate -Body "<p>$PCName</p>
+  Html-Generate -Body "
   <table>
     <tr>
       <td>Nome</td>
