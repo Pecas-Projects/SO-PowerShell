@@ -10,28 +10,28 @@ function Html-Generate {
 }
 
 function Get-Options {
-  Write-Output 'Olá, digite o número equivalente a opção que deseja visualizar:'
-    '1- Nome do Computador'
-    '2- Principais serviços rodando'
-    '3- Principais serviços parados'
-    '4- Sistema Operacional'
-    '5- BIOS'
-    '6- Disk'
-    '7- Memory'
-    '8- Todos acima'
+  Write-Output 'Olï¿½, digite o nï¿½mero equivalente a opï¿½ï¿½o que deseja visualizar:'
+  '1- Nome do Computador'
+  '2- Principais serviï¿½os rodando'
+  '3- Principais serviï¿½os parados'
+  '4- Sistema Operacional'
+  '5- BIOS'
+  '6- Disk'
+  '7- Memory'
+  '8- Todos acima'
 
   $OPTION = read-host
   Write-Output 'Abra ou recarregue o arquivo HTML'  
-  switch ( $OPTION )
-  { #cada pção chama a função que converte para HTML a função correspondente
-    1 { Get-HTML-Hostname   } 
-    2 { 'Principais serviços rodando'   }
-    3 { 'Principais serviços parados' }
-    4 { 'Sistema Operacional'  }
-    5 { 'BIOS'    }
+  switch ( $OPTION ) {
+    #cada pï¿½ï¿½o chama a funï¿½ï¿½o que converte para HTML a funï¿½ï¿½o correspondente
+    1 { Get-HTML-Hostname } 
+    2 { 'Principais serviï¿½os rodando' }
+    3 { 'Principais serviï¿½os parados' }
+    4 { 'Sistema Operacional' }
+    5 { 'BIOS' }
     6 { Get-HTML-Infos }
-    7 { 'Memory'  }
-    8 { 'Todos'}
+    7 { 'Memory' }
+    8 { 'Todos' }
   }
 
 }
@@ -66,16 +66,24 @@ function Get-BIOS-Infos {
   $BIOS
 }
 
-function Get-Services-Info {
+function Get-Services-Stopped {
 
   $services = Get-Service | Where-Object { $_.Status -eq "Stopped" } | Select-Object -First 10
 
   $services
 }
 
+function Get-Services-Running {
+
+  $services = Get-Service | Where-Object { $_.Status -eq "Running" } | Select-Object -First 10
+
+  $services
+}
+
+
 function Get-HTML-Hostname {
-   $PCName = HOSTNAME
-    Html-Generate -Body "<p>$PCName</p>" -Title "Avaliacao 3" -File ./SoAv3.html
+  $PCName = HOSTNAME
+  Html-Generate -Body "<p>$PCName</p>" -Title "Avaliacao 3" -File ./SoAv3.html
 }
 
 function Get-HTML-Infos {
