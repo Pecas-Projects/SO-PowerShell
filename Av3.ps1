@@ -1,4 +1,4 @@
-function Html-Formate {
+function Html-Generate {
 
   param(
     [string] $Title,
@@ -34,9 +34,16 @@ function Get-OS-Infos {
 function Get-BIOS-Infos {
   $PCBIOS = Get-CimInstance -Classname WIN32_BIOS
 
-  $BIOS = $PCBIOS | Select-Object Name,BIOSVersion, Version, SerialNumber, CurrentLanguage, STATUS
+  $BIOS = $PCBIOS | Select-Object Name, BIOSVersion, Version, SerialNumber, CurrentLanguage, STATUS
  
   $BIOS
+}
+
+function Get-Services-Info {
+
+  $services = Get-Service | Where-Object { $_.Status -eq "Stopped" } | Select-Object -First 10
+
+  $services
 }
 
 function Get-HTML-Infos {
@@ -44,7 +51,7 @@ function Get-HTML-Infos {
   $DiskInfo = Get-Disk-info
 
   
-  Html-Formate -Body "<p>$PCName</p>
+  Html-Generate -Body "<p>$PCName</p>
   <table>
     <tr>
       <td>Nome</td>
