@@ -9,6 +9,33 @@ function Html-Generate {
   ConvertTo-HTML -Body $Body -Title $Title | Out-File $File
 }
 
+function Get-Options {
+  Write-Output 'Olá, digite o número equivalente a opção que deseja visualizar:'
+    '1- Nome do Computador'
+    '2- Principais serviços rodando'
+    '3- Principais serviços parados'
+    '4- Sistema Operacional'
+    '5- BIOS'
+    '6- Disk'
+    '7- Memory'
+    '8- Todos acima'
+
+  $OPTION = read-host
+
+  switch ( $OPTION )
+  { #cada pção chama a função que converte para HTML a função correspondente
+    1 { 'Nome do Computador'    } 
+    2 { 'Principais serviços rodando'   }
+    3 { 'Principais serviços parados' }
+    4 { 'Sistema Operacional'  }
+    5 { 'BIOS'    }
+    6 { Get-HTML-Infos }
+    7 { 'Memory'  }
+    8 { 'Todos'}
+  }
+
+}
+
 function Get-Disk-info {
   $DiskInfo = Get-Disk
   $diskSize = $DiskInfo[0].Size
@@ -66,4 +93,5 @@ function Get-HTML-Infos {
   </table>" -Title "Avaliacao 3" -File ./SoAv3.html
 }
 
-Get-HTML-Infos
+#Get-HTML-Infos
+Get-Options
