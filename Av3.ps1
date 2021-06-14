@@ -17,7 +17,8 @@ function Get-Options {
   '4- Sistema Operacional'
   '5- BIOS'
   '6- Disk'
-  '7- Todos acima'
+  '7- Data'
+  '8- Todos acima'
 
   $OPTION = read-host
   Write-Output 'Abra ou recarregue o arquivo HTML'  
@@ -29,9 +30,30 @@ function Get-Options {
     4 { Get-HTML-OSInfo }
     5 { Get-HTML-BIOSInfo }
     6 { Get-HTML-DiskInfo }
-    7 { Get-All-Info }
+    7 { Get-HTML-Date-Info }
+    8 { Get-All-Info }
   }
 
+}
+
+function Get-Date-Info {
+  $SO = Get-CimInstance -ClassName Win32_OperatingSystem 
+
+  $DATE = $SO.LocalDateTime
+
+  $DATE
+}
+
+function Get-HTML-Date-Info {
+  $DateInfo = Get-Date-Info
+
+  
+  Html-Generate -Body "
+  <h1>Date</h1>
+ 
+  <p>$($DateInfo)</p>
+
+  " -Title "Avaliacao 3" -File ./SoAv3.html
 }
 
 function Get-Disk-info {
@@ -46,6 +68,22 @@ function Get-Disk-info {
   $Disk.Status = $diskStatus
 
   $Disk
+}
+
+function Get-HTML-DiskInfo {
+  $DiskInfo = Get-Disk-info
+
+  
+  Html-Generate -Body "
+  <h1>Disk</h1>
+ 
+  <ul>
+  <li>Nome: $($DiskInfo.Nome)</li>
+  <li>Tamanho: $($DiskInfo.Tamanho)</li>
+  <li>Status: $($DiskInfo.Status)</li>
+  </ul>
+
+  " -Title "Avaliacao 3" -File ./SoAv3.html
 }
 
 function Get-HTML-DiskInfo {
@@ -164,10 +202,14 @@ function Get-All-Info {
   $servicesST = Get-Services-Stopped
   $servicesRN = Get-Services-Running
   $PCName = HOSTNAME
+  $DATE = Get-Date-Info
 
   Html-Generate -Body "
   <h1>Nome do Computador</h1>
   <p>$PCName</p>
+
+  <h1>Data</h1>
+  <p>$DATE</p>
 
   <h1>Disk</h1>
   <ul>
