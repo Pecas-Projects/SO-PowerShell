@@ -17,8 +17,7 @@ function Get-Options {
   '4- Sistema Operacional'
   '5- BIOS'
   '6- Disk'
-  '7- Memory'
-  '8- Todos acima'
+  '7- Todos acima'
 
   $OPTION = read-host
   Write-Output 'Abra ou recarregue o arquivo HTML'  
@@ -28,10 +27,9 @@ function Get-Options {
     2 { Get-HTML-Services-Running }
     3 { Get-HTML-Services-Stopped }
     4 { Get-HTML-OSInfo }
-    5 { Get-BIOS-Info }
+    5 { Get-HTML-BIOSInfo }
     6 { Get-HTML-DiskInfo }
-    7 { 'Memory' }
-    8 { Get-All-Info }
+    7 { Get-All-Info }
   }
 
 }
